@@ -12,10 +12,11 @@ numopinion2word = {'SP1': 'positive', 'SP2': 'negative', 'SP3': 'neutral'}
 
 
 def extract_spans_para(task, seq, seq_type):
+    task = task.lower()
     quads = []
     sents = [s.strip() for s in seq.split('[SSEP]')]
 
-    if task == 'asqp' or task == 'gdp_wo_intra':
+    if task == 'asqp' or task == 'prosco_wo_intra':
         for s in sents:
             try:
                 ac_sp, at_ot = s.split(' because ')
@@ -37,7 +38,7 @@ def extract_spans_para(task, seq, seq_type):
                     ac, at, sp, ot = '', '', '', ''
             quads.append((ac, at, sp, ot))
 
-    elif task.startswith('gdp'):
+    elif task.startswith('prosco'):
         if seq:
             for s in sents:
                 try:

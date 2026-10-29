@@ -78,7 +78,8 @@ def get_pos_vec_bert(quad, sent):
                 zeroes_vec[idx] = 1
     return zeroes_vec
 
-def get_gdp_data(sents, labels, task, truncated=False):
+def get_prosco_data(sents, labels, task, truncated=False):
+    task = task.lower()
     def inner_fn(sent, label):
         aspect_terms = set()
         for quad in label:
@@ -91,7 +92,7 @@ def get_gdp_data(sents, labels, task, truncated=False):
             else:
                 indices[term] = len(utt_str) + 1
 
-        if task == 'gdp_wo_sorting':
+        if task == 'prosco_wo_sorting':
             sorted_aspects = aspect_terms
         else:
             sorted_aspects = sorted(aspect_terms, key=indices.get)
@@ -124,13 +125,13 @@ def get_gdp_data(sents, labels, task, truncated=False):
                     pos_vec = get_pos_vec_bert(revised_quad, sent)
                     one_quad_sent = ["THE", at, "IS", ot, "|", ac, "|", sp]
 
-                    if task == 'gdp_wo_intra':
+                    if task == 'prosco_wo_intra':
                         one_quad_sent = [ac, 'is', man_ot, 'because', at, 'is', ot]
 
                     outputs.append((one_quad_sent, pos_vec))
 
         sent_len = len(sent)
-        if task == 'gdp_wo_sorting':
+        if task == 'prosco_wo_sorting':
             sorted_outputs = outputs
         else:
             sorted_outputs = sorted(outputs, key=lambda x: (

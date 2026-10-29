@@ -10,10 +10,10 @@ from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 from pytorch_lightning import seed_everything
 
-from data_utils import GDPDATASET, read_line_examples_from_file
+from data_utils import ProSCoDataset, read_line_examples_from_file
 from utils import LoggingCallback
 from transformers import T5ForConditionalGeneration, T5Tokenizer, T5Config
-from model_gdp import LightningModule
+from model_prosco import LightningModule
 
 
 def str2bool(v):
@@ -25,7 +25,7 @@ def str2bool(v):
 def init_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--task", default='gdp', type=str)
+    parser.add_argument("--task", default='prosco', type=str.lower)
     parser.add_argument("--dataset", default='Laptop', type=str)
     parser.add_argument("--model_name_or_path", default='t5-base', type=str)
     parser.add_argument("--do_train", type=str2bool, default=True)
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     tokenizer = T5Tokenizer.from_pretrained(args.model_name_or_path)
     tokenizer.add_tokens(['[SSEP]', '[ASP]', '[OPI]', '[SEP]'])
 
-    dataset = GDPDATASET(tokenizer=tokenizer, data_dir=args.dataset, max_len=args.max_seq_length,
+    dataset = ProSCoDataset(tokenizer=tokenizer, data_dir=args.dataset, max_len=args.max_seq_length,
                          data_type='train', task=args.task, truncate=args.truncate,
                          use_rag=args.use_rag, use_ner_retrieval=args.use_ner_retrieval,
                          ner_model_path=args.ner_model_path)

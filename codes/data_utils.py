@@ -2,13 +2,13 @@ import json
 import random
 from torch.utils.data import Dataset
 import torch
-from generate_data import get_gdp_data, get_domain, domain_map
+from generate_data import get_prosco_data, get_domain, domain_map
 
 sentword2opinion = {'positive': 'great', 'negative': 'bad', 'neutral': 'ok'}
 
 
 def get_dataset(tokenizer, type_path, args):
-    return GDPDATASET(tokenizer=tokenizer,
+    return ProSCoDataset(tokenizer=tokenizer,
                       data_dir=args.dataset,
                       data_type=type_path,
                       max_len=args.max_seq_length,
@@ -83,11 +83,11 @@ def get_transformed_io(data_path, data_dir, task, data_type, truncate=False):
         return (*_read_preformatted_file(f'../data/{data_dir}/dot/stage2_{data_type}.txt'), [])
 
     sentences, labels = read_line_examples_from_file(data_path)
-    inputs, targets = get_gdp_data(sentences, labels, task, truncate)
+    inputs, targets = get_prosco_data(sentences, labels, task, truncate)
     return inputs, targets, labels
 
 
-class GDPDATASET(Dataset):
+class ProSCoDataset(Dataset):
     def __init__(self, tokenizer, data_dir, data_type, task, max_len=256, data_path=None, truncate=False,
                  with_labels=True, use_rag=False, use_ner_retrieval=False, ner_model_path=None):
         if data_path:
