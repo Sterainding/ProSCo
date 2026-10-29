@@ -1,0 +1,17 @@
+# Candidate Python 3.9 stack derived from the supplied environment export.
+# Installation and GPU training have not been validated for this snapshot.
+torch==1.13.1
+pytorch-lightning==1.8.6
+torchmetrics==0.11.0
+transformers==4.25.1
+tokenizers==0.13.2
+huggingface-hub==0.11.1
+numpy==1.24.1
+sentencepiece==0.1.97
+parse==1.19.0
+tqdm==4.64.1
+tensorboardX==2.5.1
+# train_ner.py imports datasets; absent from the original environment export.
+datasets==2.8.0
+pyarrow==10.0.1
+fsspec==2022.11.0
