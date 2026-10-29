@@ -79,7 +79,7 @@ From `codes/`, use the following configuration to enable the proposal, reward, a
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python main.py \
-  --task gdp --dataset Rest15 \
+  --task ProSCo --dataset Rest15 \
   --model_name_or_path ../T5-base/t5-base-offline \
   --batch_size 4 --max_seq_length 200 \
   --num_train_epochs 20 --learning_rate 3e-4 --seed 42 \
@@ -100,7 +100,7 @@ To inspect the base configuration, omit the proposal and risk-training switches:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python main.py \
-  --task gdp --dataset Rest15 \
+  --task ProSCo --dataset Rest15 \
   --model_name_or_path ../T5-base/t5-base-offline \
   --batch_size 4 --num_train_epochs 20 --seed 42 \
   --output_dir ../outputs/base-rest15
@@ -156,7 +156,7 @@ This is a synthetic format example. Sentiment labels are `positive`, `negative`,
 ProSCo/
 ├── codes/                     # Model, training, evaluation, and span tagger
 │   ├── main.py                # Experiment entry point
-│   ├── model_gdp.py           # Generator, rewards, and risk optimization
+│   ├── model_prosco.py        # Generator, rewards, and risk optimization
 │   ├── data_utils.py          # Data loading and proposal-augmented inputs
 │   ├── sar.py                 # Structure-aware refinement
 │   ├── mcf.py                 # Multi-candidate fusion
